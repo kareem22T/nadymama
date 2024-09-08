@@ -77,7 +77,7 @@ const BookingComponent: React.FC = () => {
 
     const { id } = useParams()
     useEffect(() => {
-        fetch("https://nadymama-api.ykdev.online/api/users/doctor/" + id)
+        fetch("https://api.nadymama.com/api/users/doctor/" + id)
             .then((response) => response.json())
             .then((data) => setDoctor(data))
             .catch((error) => console.error("Error fetching doctor data:", error));
@@ -134,7 +134,7 @@ const BookingComponent: React.FC = () => {
     
     const handleBook = async () => {
         try {
-            const response = await api.post('https://nadymama-api.ykdev.online/api/users/appointments/book', {
+            const response = await api.post('https://api.nadymama.com/api/users/appointments/book', {
                 doctor_id: id,
                 name: formData.name,
                 email: formData.email,
@@ -190,7 +190,7 @@ const BookingComponent: React.FC = () => {
                     <div className="card_wrapper">
                         <div className="image_wrapper">
                             <div className="img">
-                                <img src={'https://nadymama-api.ykdev.online/public/storage/' + doctor?.photo} alt="" />
+                                <img src={'https://api.nadymama.com/public/storage/' + doctor?.photo} alt="" />
                                 <div className="details">
                                     <h2 className="name">
                                         {doctor?.name}
@@ -201,7 +201,7 @@ const BookingComponent: React.FC = () => {
                                     <p>
                                         {doctor?.degree}
                                     </p>
-                                    <div className="social">
+                                    {/* <div className="social">
                                         <a href="">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-brand-facebook-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3b5998" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -224,11 +224,11 @@ const BookingComponent: React.FC = () => {
                                                 <path d="M16.5 7.5l0 .01" />
                                             </svg>
                                         </a>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <h2>ما هو تقيمك للطبيب؟</h2>
-                            <div className="rate">
+                            {/* <div className="rate">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-star-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" stroke-width="0" fill="currentColor" />
                                 </svg>
@@ -244,7 +244,7 @@ const BookingComponent: React.FC = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-star-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" stroke-width="0" fill="currentColor" />
                                 </svg>
-                            </div>
+                            </div> */}
                             <p>متوسط التقيم: 5/5. مرات التقيم: 4</p>
                             <button className="comfirm-booking" style={{ opacity: !day ? .5 : 1 }} disabled={!day} onClick={() => setShowBookingPopUp(true)}>اتمام الحجز</button>
                         </div>

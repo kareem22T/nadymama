@@ -94,7 +94,7 @@ const Header = () => {
 
     const askForValidationCode = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/users/user/ask-email-verfication-code`, {
+            const response = await axios.get(`${API_URL}/api/users/user/ask-email-verification-code`, {
                 headers: {
                     "Authorization": `Bearer ${tokenRef.current}`
                 }
@@ -338,7 +338,7 @@ const Header = () => {
         // Fetch categories from API
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('https://nadymama-api.ykdev.online/api/users/categories/all');
+                const response = await axios.get('https://api.nadymama.com/api/users/categories/all');
                 setCategories(response.data.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);

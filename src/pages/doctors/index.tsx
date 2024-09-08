@@ -19,25 +19,27 @@ const Doctors: React.FC = () => {
             name: params.get('name') || '',
             specialization_id: params.get('category') || '',
             position_id: params.get('position') || '',
+            gouvernorat_id: params.get('gouvernorat') || '',
         };
     };
 
     useEffect(() => {
         const fetchDoctors = async () => {
             setLoading(true);
-            const { name, specialization_id, position_id } = getQueryParams();
+            const { name, specialization_id, position_id, gouvernorat_id } = getQueryParams();
             try {
-                const response = await axios.get(`https://nadymama-api.ykdev.online/api/users/doctors`, {
+                const response = await axios.get(`https://api.nadymama.com/api/users/doctors`, {
                     params: {
                         page,
                         name,
                         specialization_id,
+                        gouvernorat_id,
                         position_id,
                     },
                 });
                 const { data, last_page } = response.data;
                 const doctorsData = data.map((doctor: any) => ({
-                    imgSrc: doctor.photo ? 'https://nadymama-api.ykdev.online/public/storage/' + doctor.photo : './assets/imgs/default-doctor.jpg',
+                    imgSrc: doctor.photo ? 'https://api.nadymama.com/public/storage/' + doctor.photo : './assets/imgs/default-doctor.jpg',
                     title: doctor.degree,
                     name: doctor.name,
                     id: doctor.id,

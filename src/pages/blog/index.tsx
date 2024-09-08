@@ -17,10 +17,10 @@ const Blog: React.FC = () => {
         const fetchArticles = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`https://nadymama-api.ykdev.online/api/users/articles?page=${page}`);
+                const response = await axios.get(`https://api.nadymama.com/api/users/articles?page=${page}`);
                 const { data, last_page } = response.data;
                 const articlesData = data.map((article: any) => ({
-                    imgSrc: article.thumbnail ? 'https://nadymama-api.ykdev.online/public/storage/' + article.thumbnail : './assets/imgs/default-article.jpg',
+                    imgSrc: article.thumbnail ? 'https://api.nadymama.com/public/storage/' + article.thumbnail : './assets/imgs/default-article.jpg',
                     title: article.title,
                     id: article.id,
                     breif: article.brief,

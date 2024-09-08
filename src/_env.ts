@@ -1,1 +1,1 @@
-export const API_URL:string =   "https://nadymama-api.ykdev.online"
+export const API_URL:string =   "https://api.nadymama.com"

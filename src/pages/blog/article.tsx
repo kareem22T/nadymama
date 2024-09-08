@@ -18,7 +18,7 @@ const ArticleComponent: React.FC = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await axios.get<Article>(`https://nadymama-api.ykdev.online/api/users/articles/${id}`);
+        const response = await axios.get<Article>(`https://api.nadymama.com/api/users/articles/${id}`);
         setArticle(response.data);
       } catch (error) {
         console.error('Error fetching the article:', error);
@@ -42,7 +42,7 @@ const ArticleComponent: React.FC = () => {
             تاريخ النشر 9 مايو 2024
           </div>
           <div className="text_wrapper">
-            <img src={"https://nadymama-api.ykdev.online/public/storage/" + article.thumbnail} alt={article.title} />
+            <img src={"https://api.nadymama.com/public/storage/" + article.thumbnail} alt={article.title} />
             <div dangerouslySetInnerHTML={{ __html: article.content }} />
           </div>
         </div>

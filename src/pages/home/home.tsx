@@ -62,18 +62,23 @@ interface Settings {
 }
 // Fetch function
 const fetchCategories = async (): Promise<Category[]> => {
-    const response = await axios.get<Category[]>('https://nadymama-api.ykdev.online/api/users/categories');
+    const response = await axios.get<Category[]>('https://api.nadymama.com/api/users/categories');
     return response.data;
 };
 
 // Fetch function
 const fetchCategoriesAlone = async (): Promise<Category[]> => {
-    const response = await axios.get<Category[]>('https://nadymama-api.ykdev.online/api/users/doctors/categories');
+    const response = await axios.get<Category[]>('https://api.nadymama.com/api/users/doctors/categories');
     return response.data;
 };
 
 const fetchPositions = async (): Promise<Category[]> => {
-    const response = await axios.get<Category[]>('https://nadymama-api.ykdev.online/api/users/doctors/positions');
+    const response = await axios.get<Category[]>('https://api.nadymama.com/api/users/doctors/positions');
+    return response.data;
+};
+
+const fetchGouvernorats = async (): Promise<Category[]> => {
+    const response = await axios.get<Category[]>('https://api.nadymama.com/api/users/doctors/gouvernorats');
     return response.data;
 };
 
@@ -81,17 +86,17 @@ type ArticleRes = {
     data: Article[]
 }
 const fetchArticles = async (): Promise<Article[]> => {
-    const response = await axios.get<ArticleRes>('https://nadymama-api.ykdev.online/api/users/articles');
+    const response = await axios.get<ArticleRes>('https://api.nadymama.com/api/users/articles');
     return response.data.data;
 };
 
 const fetchSettings = async (): Promise<SettingsRes> => {
-    const response = await axios.get<Settings>('https://nadymama-api.ykdev.online/api/users/settings');
+    const response = await axios.get<Settings>('https://api.nadymama.com/api/users/settings');
     return response.data.data;
 };
 
 // HeroSection Component
-const HeroSection: React.FC<{ allCategories: Category[], psoitions: Category[]}> = ({ allCategories, psoitions })  => {
+const HeroSection: React.FC<{ allCategories: Category[], psoitions: Category[], gouvernorats: Category[]}> = ({ allCategories, psoitions, gouvernorats })  => {
     return (
         <section className="hero">
             <div className="container">
@@ -158,6 +163,14 @@ const HeroSection: React.FC<{ allCategories: Category[], psoitions: Category[]}>
                                 }
                             </select>
                         </div>
+                        <select name="gouvernorat" id="gouvernorat" className="input">
+                            <option value="">المدينة</option>
+                            {
+                                gouvernorats.map(cat => (
+                                    <option value={cat.id}>{cat.name}</option>
+                                ))
+                            }
+                        </select>
                         <button type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search"
                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
@@ -225,7 +238,7 @@ const BlogSlider: React.FC <{ aritcles: Article[]}> = ({ aritcles }) => {
                                     <SwiperSlide>
                                         <Link to={`article/${article.id}`}>
                                             <div className="thumbnail">
-                                                <img src={"https://nadymama-api.ykdev.online/public/storage/" + article.thumbnail} alt="Post 1" />
+                                                <img src={"https://api.nadymama.com/public/storage/" + article.thumbnail} alt="Post 1" />
                                             </div>
                                             <div className="text">
                                                 <h3>{article.title}</h3>
@@ -285,7 +298,7 @@ const DoctorsSlider: React.FC<{ doctors: Doctor[], catName: string, catId: numbe
                         {doctors.map((doctor) => (
                             <SwiperSlide key={doctor.id}>
                                 <div className="thumbnail">
-                                    <img src={doctor.photo ? 'https://nadymama-api.ykdev.online/public/storage/' + doctor.photo : ''} alt={doctor.name} />
+                                    <img src={doctor.photo ? 'https://api.nadymama.com/public/storage/' + doctor.photo : ''} alt={doctor.name} />
                                     <span className="title">{doctor.degree}</span>
                                 </div>
                                 <div className="text">
@@ -310,6 +323,7 @@ const Home: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [allCategories, setAllCategories] = useState<Category[]>([]);
     const [psoitions, setPositions] = useState<Category[]>([]);
+    const [gouvernorats, setGouvernorats] = useState<Category[]>([]);
     const [articles, setArticles] = useState<Article[]>([]);
     const [settings, setSettings] = useState<SettingsRes>();
     const [firstCategoryDoctors, setFirstCategoryDoctors] = useState<Doctor[]>([]);
@@ -356,6 +370,14 @@ const Home: React.FC = () => {
                 console.error('Error fetching the Articles:', error);
             }
         };
+        const getGouvernorats = async () => {
+            try {
+                const data = await fetchGouvernorats();
+                setGouvernorats(data);
+            } catch (error) {
+                console.error('Error fetching the Articles:', error);
+            }
+        };
         const getSettings = async () => {
             try {
                 const data = await fetchSettings();
@@ -365,6 +387,7 @@ const Home: React.FC = () => {
             }
         };
         getSettings();
+        getGouvernorats();
         getPositions();
         getCategoriesAlone();
         getArticles();
@@ -373,12 +396,12 @@ const Home: React.FC = () => {
 
     return (
         <DefaultLayout>
-            <HeroSection allCategories={allCategories} psoitions={psoitions}/>
+            <HeroSection allCategories={allCategories} psoitions={psoitions} gouvernorats={gouvernorats}/>
             {firstCategoryDoctors.length > 0 && <DoctorsSlider doctors={firstCategoryDoctors} catName={firstCategoryName} catId={firstCategoryId} />}
             <section className="ad">
                 <div className="container">
                     <div className="img">
-                        <img src={"https://nadymama-api.ykdev.online/public/storage/" + settings?.ad_user_one} alt="Advertisement" />
+                        <img src={"https://api.nadymama.com/public/storage/" + settings?.ad_user_one} alt="Advertisement" />
                     </div>
                 </div>
             </section>
@@ -389,7 +412,7 @@ const Home: React.FC = () => {
             <section className="ad">
                 <div className="container">
                     <div className="img">
-                        <img src={"https://nadymama-api.ykdev.online/public/storage/" + settings?.ad_user_two} alt="Advertisement" />
+                        <img src={"https://api.nadymama.com/public/storage/" + settings?.ad_user_two} alt="Advertisement" />
                     </div>
                 </div>
             </section>

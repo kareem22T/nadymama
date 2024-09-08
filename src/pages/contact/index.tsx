@@ -23,7 +23,7 @@ const Contact = () => {
   const [error, setError] = useState<string>("");
 
   const fetchSettings = async (): Promise<SettingsRes> => {
-    const response = await axios.get<Settings>("https://nadymama-api.ykdev.online/api/users/settings");
+    const response = await axios.get<Settings>("https://api.nadymama.com/api/users/settings");
     return response.data.data;
   };
 
@@ -48,7 +48,7 @@ const Contact = () => {
     }
 
     try {
-      await axios.post("https://nadymama-api.ykdev.online/api/users/messages", {
+      await axios.post("https://api.nadymama.com/api/users/messages", {
         name,
         email,
         phone,
@@ -131,7 +131,7 @@ const Contact = () => {
         <div className="container">
           <div className="img">
             <img
-              src={"https://nadymama-api.ykdev.online/public/storage/" + settings?.ad_user_one}
+              src={"https://api.nadymama.com/public/storage/" + settings?.ad_user_one}
               alt="Advertisement"
             />
           </div>
@@ -142,7 +142,7 @@ const Contact = () => {
         <div className="container">
           <div className="img">
             <img
-              src={"https://nadymama-api.ykdev.online/public/storage/" + settings?.ad_user_two}
+              src={"https://api.nadymama.com/public/storage/" + settings?.ad_user_two}
               alt="Advertisement"
             />
           </div>

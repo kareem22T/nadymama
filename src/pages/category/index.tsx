@@ -17,10 +17,10 @@ const Category: React.FC = () => {
         const fetchDoctors = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`https://nadymama-api.ykdev.online/api/users/specializations/${id}/doctors?page=${page}`);
+                const response = await axios.get(`https://api.nadymama.com/api/users/specializations/${id}/doctors?page=${page}`);
                 const { data, last_page } = response.data;
                 const doctorsData = data.map((doctor: any) => ({
-                    imgSrc: doctor.photo ? 'https://nadymama-api.ykdev.online/public/storage/' + doctor.photo : './assets/imgs/default-doctor.jpg',
+                    imgSrc: doctor.photo ? 'https://api.nadymama.com/public/storage/' + doctor.photo : './assets/imgs/default-doctor.jpg',
                     title: doctor.degree,
                     name: doctor.name,
                     id: doctor.id,
